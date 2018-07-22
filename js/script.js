@@ -25,34 +25,11 @@ var movies = [
 	},
 ];
 
-//nazwę klasy | propsy czyli właściwości danego elementu (wejścia) |dzieci elementu, czyli to co ma się znaleźć wewnątrz. Może to być zarówno tekst jak i kolejny ReactElement
-
-/*
-var moviesElements = movies.map(function(movie) {
-	return React.createElement('li', {key: movie.id},
-		React.createElement('h2', {}, movie.title),
-		React.createElement('p', {}, movie.desc),
-		React.createElement('img', {src: movie.url})
-	);
-});
-
-
-var element = 
-React.createElement('div', {}, 
-	React.createElement('h1', {}, 'Lista filmów'),
-	React.createElement('ul', {}, moviesElements)
-);
-
-ReactDOM.render(element, document.getElementById('app'));
-*/
-
 var MovieTitle = React.createClass({
 	propTypes: {
 		title: React.PropTypes.string.isRequired
 	},
-	
 	render: function() {
-		//console.log('title: ' + typeof(this.props.title));
 		return React.createElement('h2', {}, this.props.title);
 	}
 });
@@ -81,7 +58,7 @@ var Movie = React.createClass({
 	},
 	render: function() {
 		debugger;
-		//console.log('Movie props: ' + JSON.stringify(this.props));
+		console.log('Movie props: ' + JSON.stringify(this.props));
 		return React.createElement('div', {}, 
 			React.createElement(MovieTitle, {title: this.props.movie.title}),
 			React.createElement(MovieDescription, {description: this.props.movie.desc}),
@@ -95,76 +72,15 @@ var MovieList = React.createClass({
 		moviesArray: React.PropTypes.array.isRequired
 	},
 	render: function() {
-		//console.log('movie from list: ' + JSON.stringify(this.props))
-
-		return React.createElement('ul', {}, 
-			this.props.moviesArray.map(function(item) {
-				//console.log('item: ' + JSON.stringify(item));
-				//console.log(item.id);
-				
-				React.createElement('li', {key: item.id}, 
-					React.createElement(Movie, {movie: item})
-				)
-			}),
-		);
-
-/*
-		return this.props.moviesArray.map(function(item) {
-			//console.log('item: ' + JSON.stringify(item));
-			debugger
-			React.createElement('li', {key: item.id}, 
+		var movies = this.props.moviesArray.map(function(item) {
+			console.log(item.id);
+			return React.createElement('li', {key: item.id}, 
 				React.createElement(Movie, {movie: item})
-			);
+			)
 		});
-*/
-
-		// return React.createElement('li', {key: this.props.movie.id}, 
-		// 	React.createElement(Movie, {movie: this.props.movie})
-		// );
+		return React.createElement('ul', {}, movies);
 	}
 });
 
-
-// function TodoList({ items }) {
-//     return items.map(item => (
-//         <h1>{item.name}</h1>
-//     ));
-// }
-
-// var movieListElement = movies.map(function(movieItem) {
-// 	return React.createElement(MovieList, {movie: movieItem});
-// });
-
-/*
-var movieList = React.createElement(MovieList, {moviesArray: movies}, Movie);
-console.log(movieList);
+var movieList = React.createElement(MovieList, {moviesArray: movies});
 ReactDOM.render(movieList, document.getElementById('app'));
-
-//--------
-
-var GalleryItem = React.createClass({
-	propTypes: {
-		image: React.PropTypes.object.isRequired
-	},
-
-	render: function(){
-		return React.createElement('div', {}, 
-			React.createElement('h2', {}, this.props.image.name),
-			React.createElement('img', {src: this.props.image.src})
-		);
-	}
-});
-
-var image = {
-  name: 'Kotek',
-  src: 'http://imgur.com/n8OYCzR.png'
-};
-
-
-var element2 = React.createElement(GalleryItem, {image: image});
-console.log(element2);
-ReactDOM.render(element2, document.getElementById('app'));
-
-
-*/
-
